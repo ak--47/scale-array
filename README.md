@@ -36,19 +36,32 @@ const ScalableArray = require('scalable-array');
 const options = {
   name: 'myArray',
   writePath: './data',
-  maxSize: 100 // Flush to disk after 100 items
+  maxSize: 5 // Flush to disk after 5 items
 };
 
-const array = new ScalableArray(options);
+const myScalingArray = new ScalableArray(options);
 
 // Add some items
-array.push({ item: 1 });
-array.push({ item: 2 });
+myScalingArray.push({ item: 1 });
+myScalingArray.push({ item: 2 });
+myScalingArray.push({ item: 3 });
+myScalingArray.push({ item: 4 });
+myScalingArray.push({ item: 5 });
 
-// Automatically flushes when maxSize is reached
-array.push([{ item: 3 }, { item: 4 }, { item: 5 }]);
+console.log(`Array length: ${myScalingArray.length}`); // 5
+console.log(`Files written: ${myScalingArray.files}`) // 1
+console.log(`In-memory array: ${myScalingArray.array.length}`); // 0
 
-console.log(`Array length: ${array.length}`); // 5
+// Retrieve items
+const consumedData = [];
+	for (const item of myScalingArray.consume()) {
+		consumedData.push(item);
+	}
+
+console.log(`Array length: ${myScalingArray.length}`); // 0
+console.log(`Files written: ${myScalingArray.files}`) // 0
+console.log(`In-memory array: ${myScalingArray.array.length}`); // 0
+console.log(`Consumed data: ${consumedData}`); // [{ item: 1 }, { item: 2 }, { item: 3 }, { item: 4 }, { item: 5 }]
 ```
 
 ### Iterate Over Items
