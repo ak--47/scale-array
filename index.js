@@ -55,7 +55,7 @@ class ScaleArray {
 		if (this.array.length === 0) return;
 		if (!this._needsFlush() && !force) return;
 		this.batch += 1;
-		console.log(`SCALE []: flushing ${this._name} (part ${this.batch})`);
+		// console.log(`SCALE []: flushing ${this._name} (part ${this.batch})`);
 		const filePath = path.join(this._writePath, `${this._name}_batch_${this.batch}.json`);
 		fs.writeFileSync(filePath, this.array.map(JSON.stringify).join('\n'));
 		this._files.push(path.resolve(filePath));
@@ -70,7 +70,7 @@ class ScaleArray {
 		this.batch = 0;
 		// Delete all files
 		if (!this._files.length) return;
-		console.log(`SCALE []: Deleting ${this._files.length} files from ${this._name}`);
+		// console.log(`SCALE []: Deleting ${this._files.length} files from ${this._name}`);
 		for (const filePath of this._files) {
 			if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
 		}
@@ -341,7 +341,7 @@ class ScaleArray {
 
 		if (usedHeapSize / totalHeapSize > percent || usedHeapSize / heapLimit > percent) {
 			if (global.gc) {
-				console.log(`SCALE []: Memory usage is high, triggering garbage collection`);
+				// console.log(`SCALE []: Memory usage is high, triggering garbage collection`);
 				global.gc();
 			}
 		}
