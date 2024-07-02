@@ -1,0 +1,17 @@
+{
+  "name": "scale-array",
+  "version": "1.0.0",
+  "description": "an array which scales (to disk)",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+	"prune": "rm -rf ./tmp/*",
+	"post": "npm publish"
+  },
+  "author": "AK",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.4"
+  }
+}
